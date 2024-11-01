@@ -2,7 +2,6 @@ package ru.tiayeah.matrixprint;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.*;
 
 public class GUIDrawer implements IDrawer {
@@ -12,22 +11,21 @@ public class GUIDrawer implements IDrawer {
         this.anchorPane = anchorPane;
     }
 
-    @Override
-    public void drawRow(int row, IVector vector) {
 
-        for (int i = 0; i < vector.getSize(); i++) {
-            drawCell(vector.getValue(i), i, row);
-        }
-    }
 
     @Override
-    public void drawCell(int value, int y, int x) {
+    public void drawCell(int value, int y, int x, IMatrix matrix) {
         int baseMarginX = (int) anchorPane.localToScene(anchorPane.getBoundsInLocal()).getMinX();
         int baseMarginY = (int) anchorPane.localToScene(anchorPane.getBoundsInLocal()).getMinY() + 20;
         Text text = new Text(baseMarginX + 30 * x, baseMarginY + 30 * y, Integer.toString(value));
         //System.out.println("Ячейка " + y + " " + x + " " + (baseMarginX + 30 * x));
         text.setFont(new Font(25));
         anchorPane.getChildren().add(text);
+    }
+
+    @Override
+    public void printResult() {
+
     }
 
     @Override

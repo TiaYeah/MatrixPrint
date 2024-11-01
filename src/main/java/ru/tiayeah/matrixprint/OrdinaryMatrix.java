@@ -1,7 +1,5 @@
 package ru.tiayeah.matrixprint;
 
-import java.util.Arrays;
-
 public class OrdinaryMatrix extends AbstractMatrix {
 
     public OrdinaryMatrix(int rowCount, int colCount) {
@@ -20,9 +18,10 @@ public class OrdinaryMatrix extends AbstractMatrix {
         }
         for (int i = 0; i < rowCount; i++) {
             for (int j = 0; j < rows[i].getSize(); j++) {
-                drawer.drawCell(rows[i].getValue(j), i, j);
+                drawer.drawCell(rows[i].getValue(j), i, j, this);
             }
             //drawer.drawRow(i, rows[i]);
         }
+        drawer.printResult();
     }
 }

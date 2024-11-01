@@ -1,8 +1,5 @@
 package ru.tiayeah.matrixprint;
 
-import java.util.Arrays;
-import java.util.Map;
-
 public class SparseMatrix extends AbstractMatrix {
 
     public SparseMatrix(int rowCount, int colCount) {
@@ -22,10 +19,11 @@ public class SparseMatrix extends AbstractMatrix {
         for (int i = 0; i < rowCount; i++) {
             for (int j = 0; j < rows[i].getSize(); j++) {
                 if (rows[i].getValue(j) != 0) {
-                    drawer.drawCell(rows[i].getValue(j), i , j);
+                    drawer.drawCell(rows[i].getValue(j), i , j, this);
                 }
             }
             //drawer.drawRow(i, rows[i]);
         }
+        drawer.printResult();
     }
 }

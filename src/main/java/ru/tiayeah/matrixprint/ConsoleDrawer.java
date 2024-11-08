@@ -15,11 +15,11 @@ public class ConsoleDrawer implements IDrawer {
     public void drawCell(int value, int y, int x, IMatrix matrix) {
         if (matrixToPrint == null) {
             matrixToPrint = new ArrayList<>();
-            for (int i = 0; i < matrix.getRows(); i++) {
+            for (int i = 0; i < matrix.getRows() * 2 - 1; i++) {
                 matrixToPrint.add(new ArrayList<>());
             }
             for (int i = 0; i < matrixToPrint.size(); i++) {
-                for (int j = 0; j < matrix.getCols(); j++) {
+                for (int j = 0; j < matrix.getCols() * 2 - 1; j++) {
                     matrixToPrint.get(i).add("  ");
                 }
             }
@@ -76,10 +76,22 @@ public class ConsoleDrawer implements IDrawer {
 //                    matrixToPrint.get(y).add("  ");
 //                }
 //            }
-            matrixToPrint.get(y).set(x, value + " ");
+            matrixToPrint.get(y * 2).set(x * 2, value + " ");
+            if (x != matrix.getCols() - 1) {
+                matrixToPrint.get(y).set(x * 2 + 1, "  ");
+            }
+            if (y != matrix.getRows() - 1) {
+                matrixToPrint.get(y * 2 + 1).set(x, "  ");
+            }
             previousCol = x;
         } else {
-            matrixToPrint.get(y + 1).set(x + 1, value + " ");
+            matrixToPrint.get(y * 2 + 1).set(x * 2 + 1, value + " ");
+            if (x != matrix.getCols() - 1) {
+                matrixToPrint.get(y + 1).set(x * 2 + 2, "  ");
+            }
+            if (y != matrix.getRows() - 1) {
+                matrixToPrint.get(y * 2 + 2).set(x * 2 + 1, "  ");
+            }
             previousCol = x;
         }
     }
@@ -94,26 +106,45 @@ public class ConsoleDrawer implements IDrawer {
         }
     }
 
-    @Override
-    public void drawBorder(IMatrix matrix) {
-        drawBorder = true;
-        matrixToPrint = new ArrayList<>();
-        for (int i = 0; i < matrix.getRows() + 2; i++) {
-            matrixToPrint.add(new ArrayList<>());
-        }
+//    @Override
+//    public void drawBorder(IMatrix matrix) {
+//        drawBorder = true;
+//        matrixToPrint = new ArrayList<>();
+//        for (int i = 0; i < matrix.getRows() + 2; i++) {
+//            matrixToPrint.add(new ArrayList<>());
+//        }
+//
+//        for (int i = 0; i < matrix.getRows() + 2; i++) {
+//            for (int j = 0; j < matrix.getCols() + 2; j++) {
+//                if (i == 0 || i == matrix.getRows() + 1) {
+//                    matrixToPrint.get(i).add("* ");
+//                } else if (j == 0 || j == matrix.getCols() + 1) {
+//                    matrixToPrint.get(i).add("* ");
+//                } else {
+//                    matrixToPrint.get(i).add("  ");
+//                }
+//            }
+//        }
+//    }
+@Override
+public void drawBorder(IMatrix matrix) {
+    drawBorder = true;
+    matrixToPrint = new ArrayList<>();
+    for (int i = 0; i < matrix.getRows() * 2 + 1; i++) {
+        matrixToPrint.add(new ArrayList<>());
+    }
 
-        for (int i = 0; i < matrix.getRows() + 2; i++) {
-            for (int j = 0; j < matrix.getCols() + 2; j++) {
-                if (i == 0 || i == matrix.getRows() + 1) {
-                    matrixToPrint.get(i).add("* ");
-                } else if (j == 0 || j == matrix.getCols() + 1) {
-                    matrixToPrint.get(i).add("* ");
-                } else {
-                    matrixToPrint.get(i).add("  ");
-                }
+    for (int i = 0; i < matrix.getRows() * 2 + 1; i++) {
+        for (int j = 0; j < matrix.getCols() * 2 + 1; j++) {
+            if (i == 0 || i == matrix.getRows() * 2) {
+                matrixToPrint.get(i).add("* ");
+            } else if (j == 0 || j == matrix.getCols() * 2) {
+                matrixToPrint.get(i).add("* ");
+            } else {
+                matrixToPrint.get(i).add("  ");
             }
         }
     }
-
+}
 
 }
